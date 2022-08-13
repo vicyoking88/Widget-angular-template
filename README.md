@@ -5,6 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # General documentation
 
 - El proyecto utiliza Compodoc en la administración de documentacion, para generarla se ejecuta el comando `npm run compodoc` y crea una carpeta con el nombre `docs` a la vez que la abrira y servira por defecto en la url `http://localhost:8080/`, NOTA: allí podras registrar la documentacion de cada uno de los elementos de tu codigo la igual que la cobertura.
+- En la raiz del proyecto encontraras una carpeta con el nombre `css` que contiene una hoja de stylos (`style.css`) y un logo (`luegopago-payment.png`), allí podras personalizar visualmente la documentación al igual que cambiar el logo de acuerdo a sus requerimientos.
 
 # Structure
 
@@ -18,7 +19,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - Coleccion de proyectos : Distribucion definida por angular-cli y atomic design.
 
-```json
+```
 📦projects
 ┣ 📂my-lib => proyecto libreria
 ┃ ┣ 📂src
@@ -60,7 +61,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - builds and package : Distribucion por defecto angular.json.
 
-```json
+```
 📦dist
 ┣ 📂my-lib      => se crea build y package solo de la libreria
 ┣ 📂prod-packer => se crea build final que importa libreria para su uso en produccion.
@@ -69,7 +70,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - Documentacion : La distribución de las carpetas lo define compodoc.
 
-```json
+```
 📦docs
 ┣ 📂fonts
 ┣ 📂graph
@@ -86,7 +87,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - con el `Searsh` del VSCode reemplaza de forma global los nombres de los proyectos que desea cambiar. `test-packer` app de pruebas `prod-packer` app de produccion `my-lib` o la libreria.
 - (Opcional) configure el nombre del selector con el que se invocara el WIDGET desde otra aplicacion, esta configuracion se ubica en el app.module.ts del proyecto de distribucion `prod-packer`:
 
-```json
+```
     export class AppModule {
       constructor(private injector: Injector) {
       const imagenEspacio = createCustomElement(AppComponent, { injector })
@@ -97,7 +98,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - (Opcional) configure nombre de la data entrante en el app.component.ts del proyecto final de produccion. por defecto message
 
-```json
+```
 @Input()
   set message(message: any) {
 
@@ -106,7 +107,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - configuere el nombre del fichero del widget final en el archivo raiz concat.js:
 
-```json
+```
     concat(
     files,
     path.resolve(__dirname, "./dist/prod-packer/NOMBRE-WIDGET.js"),
@@ -133,33 +134,46 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - si es la primera vez que corres el Widget en tu maquina debes ejecutas el comando `npm link` esto nos permite crear un enlace simbolico global al build de la libreria
     - antes de correr el servidor desarrollo debe ejecutar `npm run build:watch` que instala la biblioteca en el packege.json a la vez que corre un build observable de la libreria
     - en otra consola ejecuta cualquiera de los siguientes scripts de acuerdo al entorno que desea apuntar:
-      `start:test-dev`
-      `start:test-qa`
-      `start:test-stag`
-      `start:test-prod`
 
-    NOTA: de esta forma no solo recargara automáticamente los cambios de la app tambien los de la libreria.
+    ```
+      `npm run start:test-dev`
+      `npm run start:test-qa`
+      `npm run start:test-stag`
+      `npm run start:test-prod`
+    ```
+
+    - NOTA: de esta forma no solo recargara automáticamente los cambios de la app tambien los de la libreria.
 
     "dependencies": {
     "my-lib": "file:dist/my-lib",
     },
 
-  - ## boot with pack
+  - Serve prod-packer (OPCIONAL):
+    es posible arrancar el proyecto final en un servidor local si asi lo requiere, comando :
 
-    - se utiliza el comando `npm run start:lib` en un entorno local de desarrollo y por defecto se habilitará la url `http://localhost:9090/` y ejecutara el proyecto de pruebas `test-packer`.
+    ```
+    npm run start:prod
 
-    "dependencies": {
-    "my-lib": "file:dist/my-lib/my-lib-0.0.1.tgz",
-    },
+    ```
 
-    NOTA-1: de esta forma solo recargara los cambios de la app y no los de la libreria para lo que tendria que ejecutar el comando cada vez que cambie algo en su desarrollo
-    NOTA-2: puede crear 4 scripts para cada entorno si asi lo desea.
+    configurable script para cada entorno
+
+- ## boot with pack
+
+  - se utiliza el comando `npm run start:lib` en un entorno local de desarrollo y por defecto se habilitará la url `http://localhost:9090/` y ejecutara el proyecto de pruebas `test-packer`.
+
+  "dependencies": {
+  "my-lib": "file:dist/my-lib/my-lib-0.0.1.tgz",
+  },
+
+  - NOTA-1: de esta forma solo recargara los cambios de la app y no los de la libreria para lo que tendria que ejecutar el comando cada vez que cambie algo en su desarrollo
+  - NOTA-2: puede crear 4 scripts para cada entorno si asi lo desea.
 
 # Library packaging generation (optional)
 
-- Para generar la librería se ejecuta el comando `npm run pack:lib`, la cual generará el archivo `payment-methods-0.0.1.tgz` dentro de la carpeta `dist\my-lib`de la raiz del proyecto. Nota: package de la libreria sin publicar de forma local. [Documentacion](https://dev.azure.com/sistecredito/LuegopaGO/_git/lpg-ang-front-portal-lpg-credinet?path=/projects/payment-methods/README.md&_a=preview)
+- Para generar la librería se ejecuta el comando `npm run pack:lib`, la cual generará el archivo `my-lib-0.0.1.tgz` dentro de la carpeta `dist\my-lib`de la raiz del proyecto. Nota: package de la libreria sin publicar de forma local.
 
-```json
+```
 📁dist/
   |
   ├─📁my-lib/
@@ -172,54 +186,54 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
   -Crea widget de pruebas en el directorio 📦dist/📂test-packer para usarlo en una aplicacion de pruebas en los diferentes entornos; estos son los comandos para cada entorno:
 
-  ```json
+  ```
   `sandbox:dev`, => reemplaza en environment por environment.ts
   `sandbox:qa`, => reemplaza en environment por environment.qa.ts
   `sandbox:stag`, => reemplaza en environment por environment.stag.ts
   `sandbox:prod`, => reemplaza en environment por environment.prod.ts
   ```
 
-  usando como empaquetador final el proyecto de pruebas `test-packer` el cual importa el proyecto ('libreria') `payment-methods`.
+  usando como empaquetador final el proyecto de pruebas `test-packer` el cual importa el proyecto ('libreria') `my-lib`.
 
 - ## Build prod
 
-Crea widget en el directorio 📦dist/📂prod-packer listo para distribución en los diferentes entornos; estos son los comandos para cada entorno:
+  -Crea widget en el directorio 📦dist/📂prod-packer listo para distribución en los diferentes entornos; estos son los comandos para cada entorno:
 
-```json
-`npm run build-dev`, => reemplaza en environment por environment.ts
-`npm run build-qa`, => reemplaza en environment por environment.qa.ts
-`npm run build-stag`, => reemplaza en environment por environment.stag.ts
-`npm run build-prod`, => reemplaza en environment por environment.prod.ts
-```
+  ```
+  `npm run build-dev`, => reemplaza en environment por environment.ts
+  `npm run build-qa`, => reemplaza en environment por environment.qa.ts
+  `npm run build-stag`, => reemplaza en environment por environment.stag.ts
+  `npm run build-prod`, => reemplaza en environment por environment.prod.ts
+  ```
 
-usando como empaquetador final el proyecto `prod-packer` el cual importa el proyecto ('libreria') `payment-methods`.
+  usando como empaquetador final el proyecto `prod-packer` el cual importa el proyecto ('libreria') `my-lib`.
 
-- Consideración importante=>
+  - Consideración importante=>
 
-  - build por defecto => se construye con la configuracion por defecto webpack de angular.
+    - build por defecto => se construye con la configuracion por defecto webpack de angular.
+
+      angular.json =>
+
+    ```
+    "builder": "@angular-devkit/build-angular:browser",
+    ```
+
+    a su vez se concatena con la dependencia `concat-files`, configuracion en el archivo raiz concat.js
+
+    - build opcional => puedes crear la construccion manual de webpack usando =>
 
     angular.json =>
 
-  ```json
-  "builder": "@angular-devkit/build-angular:browser",
-  ```
+    ```
+    "builder": "@angular-builders/custom-webpack",
+    "options": {
+      "customWebpackConfig": {
+        "path": "./webpack.config.js",
+      },
+    }
+    ```
 
-  a su vez se concatena con la dependencia `concat-files`, configuracion en el archivo raiz concat.js
-
-  - build opcional => puedes crear la construccion manual de webpack usando =>
-
-  angular.json =>
-
-  ```json
-  "builder": "@angular-builders/custom-webpack",
-  "options": {
-    "customWebpackConfig": {
-      "path": "./webpack.config.js",
-    },
-  }
-  ```
-
-  construye y concatena el widget usando la configuracion del archivo raiz webpack.config.
+    construye y concatena el widget usando la configuracion del archivo raiz webpack.config.
 
 # Services and interceptor
 
@@ -270,7 +284,7 @@ usando como empaquetador final el proyecto `prod-packer` el cual importa el proy
 
 - script
 
-```json
+```
     const newScript = document.createElement('script')
     newScript.setAttribute('src', 'url widget')
     document.head.appendChild(newScript)
@@ -278,7 +292,7 @@ usando como empaquetador final el proyecto `prod-packer` el cual importa el proy
 
 - load
 
-```json
+```
     const newDiv = document.createElement('selector-widget') as any
     newDiv.addEventListener('data-recibida', { saludo: 'hola' });
     newDiv.message = 'data-enviada'

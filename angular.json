@@ -300,11 +300,11 @@
                   "with": "projects/prod-packer/src/environments/environment.prod.ts"
                 }
               ],
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "namedChunks": true,
               "outputHashing": "all"
             }

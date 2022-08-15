@@ -235,6 +235,20 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
     construye y concatena el widget usando la configuracion del archivo raiz webpack.config.
 
+# Visual styles
+
+- Por defecto los estilos visuales en los componentes angular vienen encapsulados = >
+```
+ encapsulation: ViewEncapsulation.Emulated
+```
+con lo cual en fremework agrega o marca las clases con diferentes caracteres entre componentes para que no se vean afectados entres si.
+NOTA => al mantenersen dentro del mismo arbol del Dom en algunos casos prodrian verse afectdos y mas si es un widget pues este recibe todos los estilos de la aplicacion que lo importe.
+
+- `Recommendation` se recomienda usar la encapsulacion con shadowDom esta nueva caracteristica de html 5 permite crearlo como un web Component aislando totalmente el fragmento de codigo del componente de toda la app y el widget => 
+```
+ encapsulation: ViewEncapsulation.ShadowDom,
+```
+- `not recommendable` no se recomienda marcar con shadowDom multiples componentes que requiera capturar información directamente de los elementos nativos del html.
 # Services and interceptor
 
 - el proyecto incluye un servicio inerceptor con el codigo necesario para autenticar y refrescar JWT. en los proyectos raiz puede dirigirse a las carpetas de servicios/authentication/interceptor.service.ts y configurar el header que requiera

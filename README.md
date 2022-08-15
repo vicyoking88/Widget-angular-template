@@ -88,12 +88,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - (Opcional) configure el nombre del selector con el que se invocara el WIDGET desde otra aplicacion, esta configuracion se ubica en el app.module.ts del proyecto de distribucion `prod-packer`:
 
 ```
-    export class AppModule {
-      constructor(private injector: Injector) {
-      const imagenEspacio = createCustomElement(AppComponent, { injector })
-      customElements.define('selector-widget', imagenEspacio)
-    }
+   export class AppModule {
+  constructor(private injector: Injector) {
+    const imagenEspacio = createCustomElement(AppComponent, {
+      injector: this.injector,
+    });
+    customElements.define('widget-selector', imagenEspacio);
   }
+  ngDoBootstrap() {}
+}
 ```
 
 - (Opcional) configure nombre de la data entrante en el app.component.ts del proyecto final de produccion. por defecto message

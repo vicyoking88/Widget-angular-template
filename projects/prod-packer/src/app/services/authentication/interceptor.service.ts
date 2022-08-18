@@ -20,7 +20,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         /**header inicial */
       },
     })
-    return next.handle(req).pipe(
+    return next.handle(tokenisReq).pipe(
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
           return next.handle(req) ///=> replace
@@ -32,15 +32,15 @@ export class TokenInterceptorService implements HttpInterceptor {
               }
             });
             console.log('new token', res.data.token)
-            localStorage.setItem('luegopago_data_token', res.data.token);
+            localStorage.setItem('name-localstorage', res.data.token);
             return next.handle(newToken);
           }),
           catchError((err: HttpErrorResponse) => {
-            return throwError(err);
+            return throwError(()=>err);
           })
         )*/
         }
-        return throwError(err)
+        return throwError(()=>err);
       })
     )
   }
